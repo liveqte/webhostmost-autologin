@@ -34,3 +34,11 @@ jobs:
           path: ./*.png
           retention-days: 30             
           if-no-files-found: ignore
+          
+      - name: 🧹 Clean Worker workflow
+        uses: MajorScruffy/delete-old-workflow-runs@v0.3.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          repository: ${{ github.repository }}
+          older-than-seconds: 3600  
