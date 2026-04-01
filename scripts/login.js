@@ -55,10 +55,11 @@ async function main() {
     // 解析JSON
     const accounts = JSON.parse(credentialsJson);
     console.log(`Found ${Object.keys(accounts).length} accounts to process`);
-    
+    let username1;
     // 遍历所有账户
     for (const [username, password] of Object.entries(accounts)) {
       try {
+        username1=username.slice(0, 4);
         console.log(`\n=== Processing account: ${username1} ===`);
         await login(username, password);
         
