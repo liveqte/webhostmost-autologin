@@ -1,8 +1,9 @@
 const puppeteer = require('puppeteer');
 
 async function login(username, password) {
-  console.log(`Attempting to login with username: ${username}`);
-  
+  const username1=username.slice(0, 4);
+  console.log(`Attempting to login with username: ${username1}`);
+ 
   const browser = await puppeteer.launch({
     headless: 'new',
     args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -28,15 +29,15 @@ async function login(username, password) {
     
     const url = page.url();
     if (url.includes('clientarea.php')) {
-      console.log(`✅ Successfully logged in as ${username}`);
+      console.log(`✅ Successfully logged in as ${username1}`);
     } else {
-      console.log(`❌ Failed to login as ${username}`);
+      console.log(`❌ Failed to login as ${username1}`);
     }
     
-    await page.screenshot({ path: `${username}-screenshot.png` });
+    await page.screenshot({ path: `${username1}-screenshot.png` });
     
   } catch (error) {
-    console.error(`🚨 Error during login for ${username}:`, error);
+    console.error(`🚨 Error during login for ${username1}:`, error);
   } finally {
     await browser.close();
   }
@@ -58,7 +59,7 @@ async function main() {
     // 遍历所有账户
     for (const [username, password] of Object.entries(accounts)) {
       try {
-        console.log(`\n=== Processing account: ${username} ===`);
+        console.log(`\n=== Processing account: ${username1} ===`);
         await login(username, password);
         
         // 账户间延迟
@@ -67,7 +68,7 @@ async function main() {
           await new Promise(resolve => setTimeout(resolve, 5000));
         }
       } catch (error) {
-        console.error(`Error processing ${username}:`, error);
+        console.error(`Error processing ${username1}:`, error);
       }
     }
     
